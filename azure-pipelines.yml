@@ -42,8 +42,8 @@ stages:
         echo ">>> Building and pushing ARM64 image"
         docker buildx build --platform linux/arm64 \
           -t $(containerRegistry)/$(imageRepository):$(tag) \
-          -f $(dockerfilePath) \
-          --push .
+          -f Shopping.API/Dockerfile \
+          --push Shopping.API
       displayName: Build and push ARM64 image
 
     - upload: manifests
