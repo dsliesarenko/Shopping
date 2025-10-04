@@ -31,16 +31,20 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-        arguments: '--platform linux/arm64'
+     - script: |
+        echo ">>> Installing QEMU for cross-platform builds"
+        docker run --privileged --rm tonistiigi/binfmt --install all
+
+        echo ">>> Creating and bootstrapping buildx builder"
+        docker buildx create --use --name mybuilder
+        docker buildx inspect mybuilder --bootstrap
+
+        echo ">>> Building and pushing ARM64 image"
+        docker buildx build --platform linux/arm64 \
+          -t $(containerRegistry)/$(imageRepository):$(tag) \
+          -f $(dockerfilePath) \
+          --push .
+      displayName: Build and push ARM64 image
         
     - upload: manifests
       artifact: manifests
