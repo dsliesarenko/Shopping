@@ -31,7 +31,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-     - script: |
+    - script: |
         echo ">>> Installing QEMU for cross-platform builds"
         docker run --privileged --rm tonistiigi/binfmt --install all
 
@@ -45,7 +45,7 @@ stages:
           -f $(dockerfilePath) \
           --push .
       displayName: Build and push ARM64 image
-        
+
     - upload: manifests
       artifact: manifests
 
