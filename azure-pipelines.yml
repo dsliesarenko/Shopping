@@ -40,7 +40,8 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
+        arguments: '--platform linux/arm64'
+        
     - upload: manifests
       artifact: manifests
 
