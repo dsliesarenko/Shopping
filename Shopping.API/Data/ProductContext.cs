@@ -56,7 +56,7 @@ namespace Shopping.Client.Data
                 },
                 new Product()
                 {
-                    Name = "Xiaomi Mi 10",
+                    Name = "Xiaomi Mi 11",
                     Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
                     ImageFile = "product-4.png",
                     Price = 470.00M,
