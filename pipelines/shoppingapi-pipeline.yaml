@@ -3,7 +3,13 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - Shopping.API/*
+    - aks/shoppingapi.yaml
 
 resources:
 - repo: self
@@ -51,8 +57,8 @@ stages:
           --push Shopping.API
       displayName: Build and push ARM64 image
 
-    - upload: manifests
-      artifact: manifests
+    - upload: aks
+      artifact: aks
 
 - stage: Deploy
   displayName: Deploy stage
@@ -80,7 +86,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/shoppingapi.yaml
+                $(Pipeline.Workspace)/aks/shoppingapi.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
