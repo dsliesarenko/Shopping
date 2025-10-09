@@ -9,7 +9,7 @@ trigger:
   paths:
     include:
     - Shopping.Client/*
-    - aks/shoppingсlient.yaml
+    - aks/shoppingclient.yaml
 
 resources:
 - repo: self
@@ -18,7 +18,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '183fb60b-4768-4afd-9b1c-8babb162488b'
-  imageRepository: 'shoppingсlient'
+  imageRepository: 'shoppingclient'
   containerRegistry: 'dimshoppingacr.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
