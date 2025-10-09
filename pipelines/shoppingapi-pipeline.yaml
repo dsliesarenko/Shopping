@@ -20,7 +20,7 @@ variables:
   dockerRegistryServiceConnection: '183fb60b-4768-4afd-9b1c-8babb162488b'
   imageRepository: 'shoppingapi'
   containerRegistry: 'dimshoppingacr.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'Shopping.API/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'dimshoppingacr175737ec-auth'
 
@@ -53,7 +53,7 @@ stages:
         echo ">>> Building and pushing ARM64 image"
         docker buildx build --platform linux/arm64 \
           -t $(containerRegistry)/$(imageRepository):$(tag) \
-          -f Shopping.API/Dockerfile \
+          -f $(dockerfilePath) \
           --push Shopping.API
       displayName: Build and push ARM64 image
 
